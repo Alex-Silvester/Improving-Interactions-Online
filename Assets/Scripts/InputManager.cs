@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,6 +22,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] float torsoMass = 1f;
     Vector2 torsoAcceleration = Vector2.zero;
     float torsoAccelerationMagnitude = 0;
+    [SerializeField] bool torsoMovesPlayer = false;
 
     [Header("Leg Settings")]
     [SerializeField] float legPullForce = 5f;
@@ -58,7 +60,7 @@ public class InputManager : MonoBehaviour
         torsoAccelerationMagnitude = torsoPullForce / torsoMass;
         legAccelerationMagnitude = legPullForce / legMass;
 
-        overallAcceleration = torsoAcceleration + legAcceleration;
+        overallAcceleration = (torsoMovesPlayer ? torsoAcceleration : Vector3.zero) + legAcceleration;
 
         if (velocity.magnitude >= maxSpeed)
         {
@@ -96,7 +98,9 @@ public class InputManager : MonoBehaviour
 
         torsoAcceleration = direction.normalized * torsoAccelerationMagnitude;
 
-        torso.transform.LookAt((torsoAcceleration.magnitude == 0 ? transform.forward : Vec2toVec3(torsoAcceleration).normalized) + torso.transform.position, Vector3.up);
+        torso.transform.LookAt((torsoAcceleration.magnitude == 0 ? Vector3.forward : Vec2toVec3(torsoAcceleration).normalized) + torso.transform.position, Vector3.up);
+
+        if (!torsoMovesPlayer) return;
 
         if((torsoAcceleration + legAcceleration).magnitude > 0f)
         {
@@ -114,9 +118,9 @@ public class InputManager : MonoBehaviour
 
         legAcceleration = direction.normalized * legAccelerationMagnitude;
 
-        legs.transform.LookAt((legAcceleration.magnitude == 0 ? transform.forward : Vec2toVec3(legAcceleration).normalized) + legs.transform.position, Vector3.up);
+        legs.transform.LookAt((legAcceleration.magnitude == 0 ? Vector3.forward : Vec2toVec3(legAcceleration).normalized) + legs.transform.position, Vector3.up);
 
-        if ((torsoAcceleration + legAcceleration).magnitude > 0f)
+        if (((torsoMovesPlayer ? torsoAcceleration : Vector3.zero) + legAcceleration).magnitude > 0f)
         {
             moving = true;
         }
@@ -145,5 +149,11 @@ public class InputManager : MonoBehaviour
         velocityMagnitude = Velocity.magnitude;
 
         playerMoving = moving;
+    }
+
+    public void dropBox(bool closeText = false)
+    {
+        if(torso.GetComponent<torsoController>().holdingBox)
+            torso.GetComponent<torsoController>().dropBox(closeText);
     }
 }
