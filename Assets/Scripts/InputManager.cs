@@ -126,6 +126,11 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    public void OnTorsoInteract()
+    {
+        torso.GetComponent<torsoController>().torsoInteract();
+    }
+
     private Vector3 Vec2toVec3(Vector2 velocity)
     {
         return new Vector3(velocity.x, 0, velocity.y);

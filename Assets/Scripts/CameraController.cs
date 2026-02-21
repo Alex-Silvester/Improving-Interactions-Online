@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] float lerpValue = 0.01f;
 
+    [SerializeField] bool lookAtPlayer = false;
+
     // Update is called once per frame
     private void FixedUpdate()
     {
@@ -24,7 +26,9 @@ public class CameraController : MonoBehaviour
         direction.y = 0;
 
         transform.localPosition += direction * distDifference;
-        transform.LookAt(lookingAtObject.position);
+
+        if(lookAtPlayer)
+            transform.LookAt(lookingAtObject.position);
     }
 
     public void setFollowing(Transform pos)
