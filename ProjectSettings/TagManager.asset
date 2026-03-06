@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pickup
   - Camera
+  - Kick box
   layers:
   - Default
   - TransparentFX
