@@ -121,3 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d182fecfa23e324bb2f040f66cacdfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredBoxes: 1
+  pickupBoxTypes:
+  - Pickup
+  - Kick box
+  completionEvent:
+    m_PersistentCalls:
+      m_Calls: []
