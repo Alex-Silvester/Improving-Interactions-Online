@@ -59,9 +59,9 @@ namespace Photon.Pun.Demo.PunBasics
         void Start()
 		{
 			// Start following the target if wanted.
-			if (followOnStart)
+			if (followOnStart && cameraTransform == null)
 			{
-				OnStartFollowing();
+				OnStartFollowing(Camera.main.transform);
 			}
 		}
 
@@ -77,7 +77,7 @@ namespace Photon.Pun.Demo.PunBasics
 
 			// only follow is explicitly declared
 			if (isFollowing) {
-				Follow ();
+				//Follow ();
 			}
 		}
 
@@ -89,12 +89,14 @@ namespace Photon.Pun.Demo.PunBasics
 		/// Raises the start following event. 
 		/// Use this when you don't know at the time of editing what to follow, typically instances managed by the photon network.
 		/// </summary>
-		public void OnStartFollowing()
-		{	      
-			cameraTransform = Camera.main.transform;
+		public void OnStartFollowing(Transform newCameraTransform = null)
+		{
+			Debug.Log($"Following {newCameraTransform?.gameObject.name}");
+			if (newCameraTransform == null) Debug.LogWarning("No camera detected");
+			else cameraTransform = newCameraTransform;
 			isFollowing = true;
 			// we don't smooth anything, we go straight to the right camera shot
-			Cut();
+			//Cut();
 		}
 		
 		#endregion
@@ -111,8 +113,7 @@ namespace Photon.Pun.Demo.PunBasics
 			
 		    cameraTransform.position = Vector3.Lerp(cameraTransform.position, this.transform.position +this.transform.TransformVector(cameraOffset), smoothSpeed*Time.deltaTime);
 
-		    cameraTransform.LookAt(this.transform.position + centerOffset);
-		    
+		    cameraTransform.LookAt(this.transform.position + centerOffset);  
 	    }
 
 	   

@@ -7,9 +7,8 @@ public class PlayerGetter : MonoBehaviour
 
     public GameObject getPlayer(int idx)
     {
-        if (idx == 1) return player1;
-        if (idx == 2) return player2;
-        else return new GameObject();
+        if (idx == 1) { return player1; }
+        else return player2;
     }
 }
 

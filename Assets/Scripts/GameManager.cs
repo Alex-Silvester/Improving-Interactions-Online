@@ -30,16 +30,9 @@ namespace Photon.Pun.Demo.PunBasics
 
 		static public GameManager Instance;
 
-		GameObject player1;
-		GameObject player2;
-
 		#endregion
 
 		#region Private Fields
-
-		private GameObject instance;
-
-		static private int players = 0;
 
         [Tooltip("The prefab to use for representing the player")]
         [SerializeField] private GameObject playerPrefab;
@@ -51,21 +44,21 @@ namespace Photon.Pun.Demo.PunBasics
 
 		private void setup()
 		{
-            players++;
             Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
 
             // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
             GameObject go = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
 
-            go.transform.parent = springPlayer.GetComponent<PlayerGetter>().getPlayer(players).transform;
-            go.transform.position = springPlayer.GetComponent<PlayerGetter>().getPlayer(players).transform.position;
+			GameObject player = springPlayer.GetComponent<PlayerGetter>().getPlayer(GameObject.Find("PlayerInfo").GetComponent<PlayerInfo>().getPlayerNumber());
+			player.SetActive(true);
+
+            Transform trans = player.transform;
+			Debug.Log(trans.gameObject.name);
+			go.GetComponent<CameraWork>().OnStartFollowing(trans);
         }
 
         #region MonoBehaviour CallBacks
 
-        /// <summary>
-        /// MonoBehaviour method called on GameObject by Unity during initialization phase.
-        /// </summary>
         void Start()
 		{
 			Instance = this;
@@ -169,24 +162,6 @@ namespace Photon.Pun.Demo.PunBasics
 		}
 
 		#endregion
-
-		#region Private Methods
-
-		void LoadArena()
-		{
-			if ( ! PhotonNetwork.IsMasterClient )
-			{
-				Debug.LogError( "PhotonNetwork : Trying to Load a level but we are not the master Client" );
-				return;
-			}
-
-			Debug.LogFormat( "PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount );
-
-			PhotonNetwork.LoadLevel("PunBasics-Room for "+PhotonNetwork.CurrentRoom.PlayerCount);
-		}
-
-		#endregion
-
-	}
+    }
 
 }
