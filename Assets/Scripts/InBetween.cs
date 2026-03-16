@@ -6,6 +6,7 @@ using UnityEngine;
 public class InBetween : MonoBehaviour
 {
     [SerializeField] List<GameObject> gameObjects = new List<GameObject>();
+    [SerializeField] Vector3 offset;
 
     void FixedUpdate()
     {
@@ -18,6 +19,20 @@ public class InBetween : MonoBehaviour
 
         pos /= gameObjects.Count;
 
-        transform.position = pos;
+        transform.position = pos + offset;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 pos = Vector3.zero;
+
+        foreach (GameObject obj in gameObjects)
+        {
+            pos += obj.transform.position;
+        }
+
+        pos /= gameObjects.Count;
+
+        Gizmos.DrawSphere(pos + offset, 0.2f);
     }
 }

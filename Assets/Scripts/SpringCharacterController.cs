@@ -32,6 +32,8 @@ public class SpringCharacterController : MonoBehaviour
 
             float y_vel = rb.linearVelocity.y;
             rb.linearVelocity = transform.forward * speed * Time.deltaTime + new Vector3(0, y_vel, 0);
+
+            transform.LookAt(Vector3.forward + transform.position);
         }
     }
 
