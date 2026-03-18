@@ -129,7 +129,7 @@ public class InputManager : MonoBehaviour
 
     public void OnTorsoInteract()
     {
-        torso.GetComponent<torsoController>().torsoInteract();
+        torso.GetComponent<PickupController>().torsoInteract();
     }
 
     private Vector3 Vec2toVec3(Vector2 velocity)
@@ -150,7 +150,7 @@ public class InputManager : MonoBehaviour
 
     public void dropBox(bool closeText = false)
     {
-        if(torso.GetComponent<torsoController>().holdingBox)
-            torso.GetComponent<torsoController>().dropBox(closeText);
+        if(torso.GetComponent<PickupController>().holdingBox)
+            torso.GetComponent<PickupController>().dropBox(closeText);
     }
 }

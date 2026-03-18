@@ -50,7 +50,7 @@ public class KickControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Kick box") return;
+        if (other.gameObject.tag != "Interactable") return;
 
         boxes.Add(other.gameObject);
 

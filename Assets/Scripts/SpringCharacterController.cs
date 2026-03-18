@@ -37,6 +37,9 @@ public class SpringCharacterController : MonoBehaviour
         }
     }
 
+    public void slowDown() { speed /= 2f; }
+    public void speedUp() { speed *= 2f; }
+
     public void OnMove(InputValue input)
     {
         Vector2 temp = input.Get<Vector2>();

@@ -3,15 +3,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class torsoController : MonoBehaviour
+public class PickupController : MonoBehaviour
 {
     [SerializeField] Transform holdPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     [SerializeField] List<GameObject> potentialPickups = new List<GameObject>();
     GameObject pickupItem = null;
-
-    [SerializeField] GameObject pickupText = null;
 
     public bool holdingBox => pickupItem != null;
 
@@ -22,11 +20,12 @@ public class torsoController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Pickup" && !holdingBox)
+        if (collision.gameObject.tag == "Interactable" && !holdingBox)
         {
+            if (!collision.gameObject.GetComponent<InteractableBoxControl>().canPickUp) return;
+
             if (!potentialPickups.Contains(collision.gameObject))
             {
-                pickupText.SetActive(true);
                 potentialPickups.Add(collision.gameObject); 
             }
         }
@@ -36,17 +35,23 @@ public class torsoController : MonoBehaviour
     {
         if(potentialPickups.Contains(collision.gameObject))
         {
-            pickupText.SetActive(false);
             potentialPickups.Remove(collision.gameObject);
         }
     }
 
+    public  void OnPickupInteract()
+    {
+        torsoInteract();
+    }
+
     public void torsoInteract()
     {
-        if (potentialPickups.Count == 0) return;
+        if (potentialPickups.Count == 0 && pickupItem == null) return;
 
         if (pickupItem == null)
         {
+            GetComponent<SpringCharacterController>().slowDown();
+
             pickupItem = potentialPickups[0];
             potentialPickups.RemoveAt(0);
 
@@ -54,24 +59,20 @@ public class torsoController : MonoBehaviour
             pickupItem.transform.position = holdPosition.position;
 
             pickupItem.GetComponent<Rigidbody>().isKinematic = true;
-
-            pickupText.GetComponent<TMP_Text>().text = "Press \"E\" to drop";
+            pickupItem.GetComponent<InteractableBoxControl>().canPickUp = false;
         }
         else
-            dropBox();
-
-        
+            dropBox();        
     }
 
     public void dropBox(bool closeText = false)
     {
+        GetComponent<SpringCharacterController>().speedUp();
+
         pickupItem.GetComponent<Rigidbody>().isKinematic = false;
+        pickupItem.GetComponent<InteractableBoxControl>().canPickUp = true;
         pickupItem.transform.parent = null;
         pickupItem = null;
-
-        pickupText.GetComponent<TMP_Text>().text = "Press \"E\" to pick up";
-
-        if (closeText && potentialPickups.Count == 0) pickupText.SetActive(false);
     }
 
 }

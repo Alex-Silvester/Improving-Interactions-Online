@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PickupInteract",
+                    "type": "Button",
+                    "id": "35a840cf-9cea-40ab-bc6e-6a04816d3654",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -90,6 +99,17 @@
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6803d762-77e8-4d64-a469-497b0ccf8c79",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PickupInteract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -110,6 +130,15 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "6fcdb449-09be-4e6b-bed3-5785bd7a20a6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PickupInteract",
+                    "type": "Button",
+                    "id": "debcca6c-3a01-4d2f-a448-3f6ed7670af3",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -180,6 +209,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f23dcbe3-0dc7-4a48-8ec0-e59d37760d39",
+                    "path": "<Keyboard>/slash",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PickupInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

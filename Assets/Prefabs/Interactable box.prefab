@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 4158562013350128178}
   - component: {fileID: 8407461986574214810}
   - component: {fileID: 6671278906131561995}
+  - component: {fileID: -6371706584218249533}
   m_Layer: 6
-  m_Name: Pickup box
-  m_TagString: Pickup
+  m_Name: Interactable box
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 85799b36a6c584447a9b72b8cdaff65d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -136,3 +137,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6371706584218249533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8224158603724308569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a17fae7c25e642441ac07b70e1bcae86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canPickUp: 1
