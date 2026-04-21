@@ -2831,11 +2831,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 569481603549792934, guid: d0b3528e33828c9458072eeadf5c69eb, type: 3}
       propertyPath: Targets.Array.data[0].Radius
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 569481603549792934, guid: d0b3528e33828c9458072eeadf5c69eb, type: 3}
       propertyPath: Targets.Array.data[1].Radius
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 869427168660295790, guid: d0b3528e33828c9458072eeadf5c69eb, type: 3}
       propertyPath: m_Layer
